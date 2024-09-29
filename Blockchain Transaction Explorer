@@ -1,0 +1,18 @@
+import requests
+
+def get_transaction_data(tx_hash, blockchain):
+    url = f"https://{blockchain}.blockchair.com/api/v2/transaction/{tx_hash}"
+    response = requests.get(url)
+    if response.status_code == 200:
+        data = response.json()
+        return data
+    else:
+        print("Transaction not found.")
+        return None
+
+if __name__ == "__main__":
+    blockchain = input("Enter the blockchain (e.g., bitcoin, ethereum): ").lower()
+    tx_hash = input("Enter transaction hash: ")
+    data = get_transaction_data(tx_hash, blockchain)
+    if data:
+        print(f"Transaction data: {data}")
